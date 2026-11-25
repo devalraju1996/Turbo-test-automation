@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('backend') {
                     bat '''
-                        py -3.11 -m venv .venv
+                        py -3.12 -m venv .venv
                         .venv\\Scripts\\python.exe -m pip install --upgrade pip
                         .venv\\Scripts\\python.exe -m pip install -r requirements.txt
                         .venv\\Scripts\\python.exe -m pytest -v --junitxml=test-results.xml
