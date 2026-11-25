@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: turbo-backend
+  namespace: turbo-practice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: turbo-backend
+  template:
+    metadata:
+      labels:
+        app: turbo-backend
+    spec:
+      containers:
+        - name: backend
+          image: turbo-backend:local
+          ports:
+            - containerPort: 8000

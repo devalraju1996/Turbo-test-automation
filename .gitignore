@@ -1,0 +1,10 @@
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.playwright/
+node_modules/
+dist/
+.env
+*.pyc
+backend/test-results.xml
