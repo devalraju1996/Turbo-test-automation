@@ -23,6 +23,7 @@ pipeline {
                     '''
                 }
             }
+
             post {
                 always {
                     junit testResults: 'backend/test-results.xml',
@@ -47,8 +48,8 @@ pipeline {
         stage('Docker - Verify Engine') {
             steps {
                 bat '''
-                    docker --version
-                    docker info
+                    "C:\\Users\\deval\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" --version
+                    "C:\\Users\\deval\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" info
                 '''
             }
         }
