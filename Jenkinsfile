@@ -1,13 +1,17 @@
+
 pipeline {
     agent any
 
     stages {
+
+        // Stage 1: Checkout source code from GitHub
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
+        // Stage 2: Install dependencies and run backend tests
         stage('Backend - Install and Test') {
             steps {
                 dir('backend') {
@@ -21,11 +25,13 @@ pipeline {
             }
             post {
                 always {
-                    junit testResults: 'backend/test-results.xml', allowEmptyResults: true
+                    junit testResults: 'backend/test-results.xml',
+                          allowEmptyResults: true
                 }
             }
         }
 
+        // Stage 3: Install frontend dependencies and build React
         stage('Frontend - Install and Build') {
             steps {
                 dir('frontend') {
@@ -36,11 +42,30 @@ pipeline {
                 }
             }
         }
+
+        // Stage 4: Verify Docker Engine access from Jenkins
+        stage('Docker - Verify Engine') {
+            steps {
+                bat '''
+                    docker --version
+                    docker info
+                '''
+            }
+        }
     }
 
+    // Pipeline-level result messages
     post {
-        success { echo 'Turbo practice CI pipeline passed.' }
-        failure { echo 'Turbo practice CI pipeline failed. Inspect stage logs.' }
-        always { echo 'Pipeline finished.' }
+        success {
+            echo 'Turbo practice CI pipeline passed.'
+        }
+
+        failure {
+            echo 'Turbo practice CI pipeline failed. Inspect stage logs.'
+        }
+
+        always {
+            echo 'Pipeline finished.'
+        }
     }
 }
