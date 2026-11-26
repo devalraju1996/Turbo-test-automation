@@ -4,14 +4,12 @@ pipeline {
 
     stages {
 
-        // Stage 1: Checkout source code from GitHub
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        // Stage 2: Install dependencies and run backend tests
         stage('Backend - Install and Test') {
             steps {
                 dir('backend') {
@@ -23,7 +21,6 @@ pipeline {
                     '''
                 }
             }
-
             post {
                 always {
                     junit testResults: 'backend/test-results.xml',
@@ -32,7 +29,6 @@ pipeline {
             }
         }
 
-        // Stage 3: Install frontend dependencies and build React
         stage('Frontend - Install and Build') {
             steps {
                 dir('frontend') {
@@ -44,7 +40,6 @@ pipeline {
             }
         }
 
-        // Stage 4: Verify Docker Engine
         stage('Docker - Verify Engine') {
             steps {
                 bat '''
@@ -54,11 +49,10 @@ pipeline {
             }
         }
 
-        // Stage 5: Build backend and frontend Docker images
         stage('Docker - Build Images') {
             steps {
                 bat '''
-                    "C:\\Users\\deval\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" compose build
+                    "C:\\Users\\deval\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" build
                 '''
             }
         }
