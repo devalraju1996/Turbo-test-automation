@@ -44,7 +44,7 @@ pipeline {
             }
         }
 
-        // Stage 4: Verify Docker Engine access from Jenkins
+        // Stage 4: Verify Docker Engine
         stage('Docker - Verify Engine') {
             steps {
                 bat '''
@@ -53,9 +53,17 @@ pipeline {
                 '''
             }
         }
+
+        // Stage 5: Build backend and frontend Docker images
+        stage('Docker - Build Images') {
+            steps {
+                bat '''
+                    "C:\\Users\\deval\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" compose build
+                '''
+            }
+        }
     }
 
-    // Pipeline-level result messages
     post {
         success {
             echo 'Turbo practice CI pipeline passed.'
