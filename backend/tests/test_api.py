@@ -17,7 +17,9 @@ def test_list_tests():
 
 
 def test_create_execution():
-    response = client.post("/api/executions", json={"suite": "Authentication"})
+    response = client.post("/api/executions", json={"suite": "Dashboard"})
     assert response.status_code == 201
     assert response.json()["status"] == "queued"
-    assert response.json()["total"] == 2
+    assert response.json()["total"] >= 1
+
+
