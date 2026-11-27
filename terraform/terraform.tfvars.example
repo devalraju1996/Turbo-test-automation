@@ -1,0 +1,12 @@
+aws_region   = "eu-west-2"
+project_name = "turbo-test-automation"
+environment  = "dev"
+cluster_name = "turbo-test-eks"
+
+# Replace with your public IPv4 address plus /32. Do not use this example IP.
+cluster_admin_cidrs = ["84.69.181.49/32"]
+
+node_instance_types = ["t3.medium"]
+node_desired_size   = 2
+node_min_size       = 1
+node_max_size       = 3

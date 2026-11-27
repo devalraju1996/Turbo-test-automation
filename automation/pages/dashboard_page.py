@@ -1,4 +1,6 @@
 
+import os
+
 from playwright.sync_api import Page, expect
 from locators.dashboard_locators import DashboardLocators
 
@@ -9,16 +11,15 @@ class DashboardPage:
         self.page = page
 
     def open(self):
-        self.page.goto(
+        base_url = os.getenv(
+            "BASE_URL",
             "http://localhost:5173",
-            wait_until="networkidle"
         )
+        self.page.goto(base_url, wait_until="networkidle")
 
     def verify_dashboard_title(self):
         expect(
-            self.page.locator(
-                DashboardLocators.DASHBOARD_TITLE
-            )
+            self.page.locator(DashboardLocators.DASHBOARD_TITLE)
         ).to_have_text("Turbo Test Automation")
 
     def verify_test_cases(self):
